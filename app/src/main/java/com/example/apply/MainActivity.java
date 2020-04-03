@@ -1,5 +1,6 @@
 package com.example.apply;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int NEW_JOB_ACTIVITY_REQUEST_CODE  = 1;
     private JobViewModel mJobViewModel;
 
     @Override
@@ -35,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+                Intent intent = new Intent(MainActivity.this, NewJobActivity.class);
+                startActivityForResult(intent, NEW_JOB_ACTIVITY_REQUEST_CODE);
+                }
         });
 
         // set up the recyclerview
@@ -77,5 +80,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == NEW_JOB_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
+            Job job = new Job(data.getExtras().getString(NewJobActivity.EXTRA_REPLY_TITLE),
+                    data.getExtras().getString(NewJobActivity.EXTRA_REPLY_EMPLOYER),
+                    data.getExtras().getString(NewJobActivity.EXTRA_REPLY_EMAIL),
+                    data.getExtras().getString(NewJobActivity.EXTRA_REPLY_SUMMARY),
+                    data.getExtras().getString(NewJobActivity.EXTRA_REPLY_DESCRIPTION),
+                    data.getExtras().getString(NewJobActivity.EXTRA_REPLY_LOCATION),
+                    data.getExtras().getInt(NewJobActivity.EXTRA_REPLY_HOURS));
+            mJobViewModel.insert(job);
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
+        }
     }
 }

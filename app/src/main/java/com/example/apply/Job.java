@@ -34,8 +34,8 @@ public class Job {
     private String mLocation;
 
     @NonNull
-    @ColumnInfo(name = "type")
-    private String mType;
+    @ColumnInfo(name = "hours")
+    private int mHours;
 
     public Job(@NonNull String title,
                @NonNull String employer,
@@ -43,14 +43,14 @@ public class Job {
                @NonNull String summary,
                @NonNull String description,
                @NonNull String location,
-               @NonNull String type){
+               @NonNull int hours){
         this.mTitle = title;
         this.mEmployer = employer;
         this.mEmail = email;
         this.mSummary = summary;
         this.mDescription = description;
         this.mLocation = location;
-        this.mType = type;
+        this.mHours = hours;
     }
 
     public String getTitle() {
@@ -77,7 +77,7 @@ public class Job {
         return mLocation;
     }
 
-    public String getType() {
-        return mType;
+    public int getHours() {
+        return mHours;
     }
 }

@@ -76,14 +76,14 @@
                 android:layout_height="wrap_content"
                 style="@style/text_view_style"
                 android:textStyle="bold"
-                android:text="Category"/>
+                android:text="Hours"/>
 
             <TextView
-                android:id="@+id/type"
+                android:id="@+id/hours"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/text_view_style"
-                tools:text="Type of job" />
+                tools:text="No. of hours" />
 
         </LinearLayout>
 

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorScreenBackground"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_view_style"
+        android:text="Job title:"/>
+
+    <EditText
+        android:id="@+id/edit_title"
+        style="@style/text_view_style"
+        android:hint="@string/hint_title"
+        android:inputType="textCapWords|textAutoCorrect"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_view_style"
+        android:text="Employer name:"/>
+
+    <EditText
+        android:id="@+id/edit_employer"
+        style="@style/text_view_style"
+        android:hint="@string/hint_employer"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_view_style"
+        android:text="Contact Email:"/>
+
+    <EditText
+        android:id="@+id/edit_email"
+        style="@style/text_view_style"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_view_style"
+                android:text="Location:"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/spinner_location" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_view_style"
+                android:text="Hours:"/>
+
+            <EditText
+                android:id="@+id/edit_hours"
+                style="@style/text_view_style"
+                android:hint="@string/hint_hours"
+                android:inputType="number"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_view_style"
+        android:text="Job Summary:"/>
+
+    <EditText
+        android:id="@+id/edit_summary"
+        style="@style/text_view_style"
+        android:hint="@string/hint_summary"
+        android:inputType="textCapSentences"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_view_style"
+        android:text="Job Description:"/>
+
+    <EditText
+        android:id="@+id/edit_description"
+        style="@style/text_view_style"
+        android:hint="@string/hint_description"
+        android:inputType="textCapSentences"/>
+
+    <Button
+        android:id="@+id/button_save"
+        style="@style/button_style"
+        android:text="@string/button_save" />
+</LinearLayout>

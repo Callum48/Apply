@@ -3,6 +3,7 @@ package com.example.apply;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @Dao
 public interface JobDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Job job);
 
     @Query("DELETE FROM job_table")

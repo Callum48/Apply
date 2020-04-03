@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Job.class}, version = 1, exportSchema = false)
+@Database(entities = {Job.class}, version = 2, exportSchema = false)
 public abstract class JobRoomDatabase extends RoomDatabase {
 
     // DAO (database access object) that works with database
@@ -54,7 +54,7 @@ public abstract class JobRoomDatabase extends RoomDatabase {
                 "Take on many different duties in the role of a shop staff at Hell Pizza.",
                 "Bring a sense of character and commitment to the team at Picnic Cafe and enjoy working next to the rose garden."};
         String[] locations = {"Auckland CBD", "Wellington Central", "Hastings", "Wellington"};
-        String[] types = {"Hospitality", "Retail", "Hospitality", "Hospitality"};
+        int[] hours = {12, 7, 8, 6};
 
         PopulateDbAsync(JobRoomDatabase db){
             mDao = db.jobDao();
@@ -66,7 +66,7 @@ public abstract class JobRoomDatabase extends RoomDatabase {
             mDao.deleteAll();
 
             for(int i = 0; i < titles.length; i++){
-                Job job = new Job(titles[i], employers[i], "temp email", summaries[i], "temp description", locations[i], types[i]);
+                Job job = new Job(titles[i], employers[i], "temp email", summaries[i], "temp description", locations[i], hours[i]);
                 mDao.insert(job);
             }
             return null;

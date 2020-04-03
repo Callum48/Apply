@@ -1,12 +1,31 @@
 <resources>
     <string name="app_name">Apply</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="hint_title">Enter job title</string>
+    <string name="hint_employer">Enter employer name</string>
+    <string name="hint_email">Enter contact email</string>
+    <string name="hint_summary">Enter job summary</string>
+    <string name="hint_description">Enter job description</string>
+    <string name="hint_location">Enter job location</string>
+    <string name="hint_hours">Enter weekly hours</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Job not saved because there are empty fields</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string-array name="locations">
+        <item>Northland</item>
+        <item>Auckland</item>
+        <item>Waikato</item>
+        <item>Bay of Plenty</item>
+        <item>Gisborne</item>
+        <item>Taranaki</item>
+        <item>Manawatu</item>
+        <item>Wellington</item>
+        <item>Tasman</item>
+        <item>Nelson</item>
+        <item>Marlborough</item>
+        <item>West Coast</item>
+        <item>Canterbury</item>
+        <item>Otago</item>
+        <item>Southland</item>
+    </string-array>
 </resources>

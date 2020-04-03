@@ -31,14 +31,14 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
             holder.employerView.setText(current.getEmployer());
             holder.summaryView.setText(current.getSummary());
             holder.locationView.setText(current.getLocation());
-            holder.typeView.setText(current.getType());
+            holder.hoursView.setText(String.valueOf(current.getHours()));
         } else {
             // Covers the case of data not being ready
             holder.titleView.setText("No title");
             holder.employerView.setText("No employer");
             holder.summaryView.setText("No summary");
             holder.locationView.setText("No location");
-            holder.typeView.setText("No type");
+            holder.hoursView.setText("No hours");
         }
     }
 
@@ -62,7 +62,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         private final TextView employerView;
         private final TextView summaryView;
         private final TextView locationView;
-        private final TextView typeView;
+        private final TextView hoursView;
 
         private JobViewHolder(View itemView){
             super(itemView);
@@ -70,7 +70,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
             employerView = itemView.findViewById(R.id.employer);
             summaryView = itemView.findViewById(R.id.summary);
             locationView = itemView.findViewById(R.id.location);
-            typeView = itemView.findViewById(R.id.type);
+            hoursView = itemView.findViewById(R.id.hours);
         }
     }
 }
