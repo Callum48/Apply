@@ -5,8 +5,11 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +17,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private JobViewModel mJobViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
         final JobListAdapter adapter = new JobListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mJobViewModel = ViewModelProviders.of(this).get(JobViewModel.class);
+
+        mJobViewModel.getAllJobs().observe(this, new Observer<List<Job>>() {
+            @Override
+            public void onChanged(@Nullable final List<Job> jobs) {
+                // update the cached copy of words
+                adapter.setJobs(jobs);
+            }
+        });
     }
 
     @Override

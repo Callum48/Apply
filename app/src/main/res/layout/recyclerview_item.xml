@@ -3,6 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/card_background"
+    android:elevation="8dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -10,33 +13,82 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/text_view_style"
-        tools:text="placeholder text" />
+        android:textStyle="bold"
+        tools:text="Job Title" />
 
     <TextView
         android:id="@+id/employer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/text_view_style"
-        tools:text="placeholder text" />
+        tools:text="Employer" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorPrimaryLight"/>
 
     <TextView
         android:id="@+id/summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/text_view_style"
-        tools:text="placeholder text" />
+        tools:text="Short summary about the job. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
 
-    <TextView
-        android:id="@+id/location"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/text_view_style"
-        tools:text="placeholder text" />
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp">
 
-    <TextView
-        android:id="@+id/type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/text_view_style"
-        tools:text="placeholder text" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_view_style"
+                android:textStyle="bold"
+                android:text="Location"/>
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_view_style"
+                tools:text="Location text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_view_style"
+                android:textStyle="bold"
+                android:text="Category"/>
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_view_style"
+                tools:text="Type of job" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
 </LinearLayout>

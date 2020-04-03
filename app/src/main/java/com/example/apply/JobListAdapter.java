@@ -42,7 +42,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         }
     }
 
-    void setJob(List<Job> jobs){
+    void setJobs(List<Job> jobs){
         mJobs = jobs;
         notifyDataSetChanged();
     }
