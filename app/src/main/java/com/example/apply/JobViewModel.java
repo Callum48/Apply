@@ -20,5 +20,12 @@ public class JobViewModel extends AndroidViewModel {
 
     LiveData<List<Job>> getAllJobs() {return mAllJobs;}
 
+    // App accesses repository methods through this view holder class
     public void insert(Job job) {mRepository.insert(job);}
+
+    public void update(Job job) {mRepository.update(job);}
+
+    public void deleteAll() {mRepository.deleteAll();}
+
+    public void deleteJob(Job job) {mRepository.deleteJob(job);}
 }

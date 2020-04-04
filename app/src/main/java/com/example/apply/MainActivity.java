@@ -6,11 +6,13 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,27 +60,39 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setJobs(jobs);
             }
         });
+
+        // Add swipe functionality on recycler view items to delete jobs
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Job currentJob = adapter.getJobAtPosition(position);
+                        mJobViewModel.deleteJob(currentJob);
+                    }
+                }
+        );
+        helper.attachToRecyclerView(recyclerView);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.clear_data) {
+            mJobViewModel.deleteAll();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -99,3 +113,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+/**
+ * TODO: Main activity code for updating rows
+ */

@@ -9,6 +9,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+/**
+ * Creates the database
+ * Every other interaction with the db is done through the JobViewModel
+ */
+
 @Database(entities = {Job.class}, version = 2, exportSchema = false)
 public abstract class JobRoomDatabase extends RoomDatabase {
 
@@ -62,12 +67,12 @@ public abstract class JobRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params){
-            // start the app with a clean db every time
-            mDao.deleteAll();
-
-            for(int i = 0; i < titles.length; i++){
-                Job job = new Job(titles[i], employers[i], "temp email", summaries[i], "temp description", locations[i], hours[i]);
-                mDao.insert(job);
+            // if there aren't any jobs in db, then create the initial list of jobs
+            if(mDao.getAnyJob().length < 1){
+                for(int i = 0; i < titles.length; i++){
+                    Job job = new Job(titles[i], employers[i], "temp email", summaries[i], "temp description", locations[i], hours[i]);
+                    mDao.insert(job);
+                }
             }
             return null;
         }

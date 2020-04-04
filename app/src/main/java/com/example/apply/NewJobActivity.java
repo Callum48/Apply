@@ -57,7 +57,7 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
             public void onClick(View view) {
                 Intent replyIntent = new Intent();
                 if(TextUtils.isEmpty(mEditTitle.getText()) ||
-                    TextUtils.isEmpty(mEditEmployer.getText()) ||
+                        TextUtils.isEmpty(mEditEmployer.getText()) ||
                         TextUtils.isEmpty(mEditEmail.getText()) ||
                         location == null ||
                         TextUtils.isEmpty(mEditHours.getText()) ||
@@ -67,7 +67,6 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
                     // Send info back to main activity to be created into a new job
-
                     String title = mEditTitle.getText().toString();
                     String employer = mEditEmployer.getText().toString();
                     String email = mEditEmail.getText().toString();

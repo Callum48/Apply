@@ -3,12 +3,15 @@ package com.example.apply;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "job_table")
 public class Job {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     @NonNull
     @ColumnInfo(name = "title")
     private String mTitle;
@@ -53,6 +56,25 @@ public class Job {
         this.mHours = hours;
     }
 
+    @Ignore
+    public Job(int id,
+               @NonNull String title,
+               @NonNull String employer,
+               @NonNull String email,
+               @NonNull String summary,
+               @NonNull String description,
+               @NonNull String location,
+               @NonNull int hours){
+        this.id = id;
+        this.mTitle = title;
+        this.mEmployer = employer;
+        this.mEmail = email;
+        this.mSummary = summary;
+        this.mDescription = description;
+        this.mLocation = location;
+        this.mHours = hours;
+    }
+
     public String getTitle() {
         return mTitle;
     }
@@ -79,5 +101,13 @@ public class Job {
 
     public int getHours() {
         return mHours;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

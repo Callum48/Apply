@@ -14,6 +14,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
 
     private final LayoutInflater mInflator;
     private List<Job> mJobs; // Cached copy of words
+    private static ClickListener clickListener;
 
     JobListAdapter(Context context) {mInflator = LayoutInflater.from(context);}
 
@@ -47,6 +48,10 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         notifyDataSetChanged();
     }
 
+    public Job getJobAtPosition(int pos){
+        return mJobs.get(pos);
+    }
+
     // getItemCount() is call multiple times, and when it's first called, mJobs is null so we return 0
     @Override
     public int getItemCount(){
@@ -71,6 +76,20 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
             summaryView = itemView.findViewById(R.id.summary);
             locationView = itemView.findViewById(R.id.location);
             hoursView = itemView.findViewById(R.id.hours);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view){
+                    clickListener.onItemClick(view, getAdapterPosition());
+                }
+            });
         }
+    }
+
+    public void setOnItemClickListener(ClickListener clickListener){
+        JobListAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener{
+        void onItemClick(View v, int position);
     }
 }
