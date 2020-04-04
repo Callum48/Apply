@@ -14,7 +14,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * Every other interaction with the db is done through the JobViewModel
  */
 
-@Database(entities = {Job.class}, version = 2, exportSchema = false)
+@Database(entities = {Job.class}, version = 3, exportSchema = false)
 public abstract class JobRoomDatabase extends RoomDatabase {
 
     // DAO (database access object) that works with database

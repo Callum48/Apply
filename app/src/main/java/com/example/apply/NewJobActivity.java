@@ -13,6 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.Arrays;
+
+import static com.example.apply.MainActivity.EXTRA_DATA_DESCRIPTION;
+import static com.example.apply.MainActivity.EXTRA_DATA_EMAIL;
+import static com.example.apply.MainActivity.EXTRA_DATA_EMPLOYER;
+import static com.example.apply.MainActivity.EXTRA_DATA_HOURS;
+import static com.example.apply.MainActivity.EXTRA_DATA_ID;
+import static com.example.apply.MainActivity.EXTRA_DATA_LOCATION;
+import static com.example.apply.MainActivity.EXTRA_DATA_SUMMARY;
+import static com.example.apply.MainActivity.EXTRA_DATA_TITLE;
+
 public class NewJobActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     public static final String EXTRA_REPLY_TITLE = "com.example.android.roomjobssample.REPLY_TITLE";
@@ -22,6 +33,7 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
     public static final String EXTRA_REPLY_DESCRIPTION = "com.example.android.roomjobssample.REPLY_DESCRIPTION";
     public static final String EXTRA_REPLY_LOCATION = "com.example.android.roomjobssample.REPLY_LOCATION";
     public static final String EXTRA_REPLY_HOURS = "com.example.android.roomjobssample.REPLY_HOURS";
+    public static final String EXTRA_REPLY_ID = "com.example.android.roomjobssample.REPLY_ID";
 
     private EditText mEditTitle;
     private EditText mEditEmployer;
@@ -45,6 +57,25 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
         mSpinnerLocation = findViewById(R.id.spinner_location);
         mEditHours = findViewById(R.id.edit_hours);
 
+        int id = -1;
+
+        final Bundle extras = getIntent().getExtras();
+
+        // If content was given to the intent, fill it in to the corresponding views
+        // Otherwise fields are empty for blank new job
+        if(extras != null){
+            mEditTitle.setText(extras.getString(EXTRA_DATA_TITLE, ""));
+            mEditEmployer.setText(extras.getString(EXTRA_DATA_EMPLOYER, ""));
+            mEditEmail.setText(extras.getString(EXTRA_DATA_EMAIL));
+            String[] tempArray = getResources().getStringArray(R.array.locations);
+            int locationPos = Arrays.asList(tempArray).indexOf(extras.getString(EXTRA_DATA_LOCATION));
+            mSpinnerLocation.setSelection(locationPos);
+            mEditHours.setText(extras.getString(EXTRA_DATA_HOURS));
+            mEditSummary.setText(extras.getString(EXTRA_DATA_SUMMARY));
+            mEditDescription.setText(extras.getString(EXTRA_DATA_DESCRIPTION));
+        }
+
+        // Set up spinner for selecting a location
         mSpinnerLocation.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -74,6 +105,7 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
                     String summary = mEditSummary.getText().toString();
                     String description = mEditDescription.getText().toString();
 
+                    // Put the new job info in the extras for the reply intent
                     Bundle extras = new Bundle();
                     extras.putString(EXTRA_REPLY_TITLE, title);
                     extras.putString(EXTRA_REPLY_EMPLOYER, employer);
@@ -84,6 +116,12 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
                     extras.putInt(EXTRA_REPLY_HOURS, hours);
                     replyIntent.putExtras(extras);
 
+                    if(extras != null && extras.containsKey(EXTRA_DATA_ID)){
+                        int id = extras.getInt(EXTRA_DATA_ID, -1);
+                        if(id != -1){
+                            extras.putInt(EXTRA_REPLY_ID, id);
+                        }
+                    }
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

@@ -11,6 +11,7 @@
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Job not saved because there are empty fields</string>
     <string name="clear_all_data">Clear all data</string>
+    <string name="apply">Apply</string>
 
     <string-array name="locations">
         <item>Northland</item>
