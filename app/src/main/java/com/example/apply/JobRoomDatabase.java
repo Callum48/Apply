@@ -58,7 +58,7 @@ public abstract class JobRoomDatabase extends RoomDatabase {
                 "Are you a passionate athlete with a knack for customer service? Come work with the team at Nike today!",
                 "Take on many different duties in the role of a shop staff at Hell Pizza.",
                 "Bring a sense of character and commitment to the team at Picnic Cafe and enjoy working next to the rose garden."};
-        String[] locations = {"Auckland CBD", "Wellington Central", "Hastings", "Wellington"};
+        String[] locations = {"Auckland", "Nelson", "Wellington", "Wellington"};
         int[] hours = {12, 7, 8, 6};
 
         PopulateDbAsync(JobRoomDatabase db){

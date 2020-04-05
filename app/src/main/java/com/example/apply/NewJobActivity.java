@@ -70,7 +70,7 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
             String[] tempArray = getResources().getStringArray(R.array.locations);
             int locationPos = Arrays.asList(tempArray).indexOf(extras.getString(EXTRA_DATA_LOCATION));
             mSpinnerLocation.setSelection(locationPos);
-            mEditHours.setText(extras.getString(EXTRA_DATA_HOURS));
+            mEditHours.setText(String.valueOf(extras.getInt(EXTRA_DATA_HOURS)));
             mEditSummary.setText(extras.getString(EXTRA_DATA_SUMMARY));
             mEditDescription.setText(extras.getString(EXTRA_DATA_DESCRIPTION));
         }
@@ -106,22 +106,25 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
                     String description = mEditDescription.getText().toString();
 
                     // Put the new job info in the extras for the reply intent
-                    Bundle extras = new Bundle();
-                    extras.putString(EXTRA_REPLY_TITLE, title);
-                    extras.putString(EXTRA_REPLY_EMPLOYER, employer);
-                    extras.putString(EXTRA_REPLY_EMAIL, email);
-                    extras.putString(EXTRA_REPLY_SUMMARY, summary);
-                    extras.putString(EXTRA_REPLY_DESCRIPTION, description);
-                    extras.putString(EXTRA_REPLY_LOCATION, location);
-                    extras.putInt(EXTRA_REPLY_HOURS, hours);
-                    replyIntent.putExtras(extras);
+                    Bundle extrasReply = new Bundle();
+                    extrasReply.putString(EXTRA_REPLY_TITLE, title);
+                    extrasReply.putString(EXTRA_REPLY_EMPLOYER, employer);
+                    extrasReply.putString(EXTRA_REPLY_EMAIL, email);
+                    extrasReply.putString(EXTRA_REPLY_SUMMARY, summary);
+                    extrasReply.putString(EXTRA_REPLY_DESCRIPTION, description);
+                    extrasReply.putString(EXTRA_REPLY_LOCATION, location);
+                    extrasReply.putInt(EXTRA_REPLY_HOURS, hours);
 
+                    // If updating a job, define which job to update
                     if(extras != null && extras.containsKey(EXTRA_DATA_ID)){
                         int id = extras.getInt(EXTRA_DATA_ID, -1);
                         if(id != -1){
-                            extras.putInt(EXTRA_REPLY_ID, id);
+                            extrasReply.putInt(EXTRA_REPLY_ID, id);
                         }
                     }
+
+                    // Add data to reply intent and indicate success
+                    replyIntent.putExtras(extrasReply);
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

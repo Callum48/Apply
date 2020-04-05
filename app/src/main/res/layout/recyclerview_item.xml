@@ -8,20 +8,43 @@
     android:elevation="8dp"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/text_view_style"
-        android:textStyle="bold"
-        tools:text="Job Title" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/employer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/text_view_style"
-        tools:text="Employer" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_view_style"
+                android:textStyle="bold"
+                tools:text="Job Title" />
+
+            <TextView
+                android:id="@+id/employer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_view_style"
+                tools:text="Employer" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/edit_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="launch"
+            android:src="@drawable/ic_edit_blue_24dp"
+            android:background="#ffffff"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="fill_parent"

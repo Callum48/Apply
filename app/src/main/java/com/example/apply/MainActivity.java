@@ -97,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 Job job = adapter.getJobAtPosition(position);
                 launchViewActivity(job);
             }
+
+            @Override
+            public void onEditClick(View v, int position) {
+                Job job = adapter.getJobAtPosition(position);
+                launchUpdateActivity(job);
+            }
         });
     }
 
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                             data.getExtras().getInt(NewJobActivity.EXTRA_REPLY_HOURS));
             mJobViewModel.insert(job);
         } else if(requestCode == UPDATE_JOB_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
-            String title = data.getStringExtra(data.getExtras().getString(NewJobActivity.EXTRA_REPLY_TITLE));
+            String title = data.getExtras().getString(NewJobActivity.EXTRA_REPLY_TITLE);
             String employer = data.getExtras().getString(NewJobActivity.EXTRA_REPLY_EMPLOYER);
             String email = data.getExtras().getString(NewJobActivity.EXTRA_REPLY_EMAIL);
             String summary = data.getExtras().getString(NewJobActivity.EXTRA_REPLY_SUMMARY);
@@ -139,15 +145,16 @@ public class MainActivity extends AppCompatActivity {
 
             if(id != -1){
                 mJobViewModel.update(new Job(id, title, employer, email, summary, description, location, hours));
+                Toast.makeText(this, "attempting updating", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Unable to update", Toast.LENGTH_LONG).show();
             }
-
         } else {
             Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
         }
     }
 
     public void launchViewActivity(Job job){
-        // code
         Intent intent = new Intent(this, ViewJobActivity.class);
         intent.putExtras(getJobBundleData(job));
         startActivity(intent);
@@ -155,16 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void launchUpdateActivity(Job job){
         Intent intent = new Intent(this, NewJobActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_DATA_TITLE, job.getTitle());
-        bundle.putString(EXTRA_DATA_EMPLOYER, job.getEmployer());
-        bundle.putString(EXTRA_DATA_EMAIL, job.getEmail());
-        bundle.putString(EXTRA_DATA_SUMMARY, job.getSummary());
-        bundle.putString(EXTRA_DATA_DESCRIPTION, job.getDescription());
-        bundle.putString(EXTRA_DATA_LOCATION, job.getLocation());
-        bundle.putInt(EXTRA_DATA_HOURS, job.getHours());
-        bundle.putInt(EXTRA_DATA_ID, job.getId());
-        intent.putExtras(bundle);
+        intent.putExtras(getJobBundleData(job));
         startActivityForResult(intent, UPDATE_JOB_ACTIVITY_REQUEST_CODE);
     }
 

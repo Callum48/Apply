@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,6 +69,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         private final TextView summaryView;
         private final TextView locationView;
         private final TextView hoursView;
+        private final ImageButton editJobButton;
 
         private JobViewHolder(View itemView){
             super(itemView);
@@ -76,10 +78,17 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
             summaryView = itemView.findViewById(R.id.summary);
             locationView = itemView.findViewById(R.id.location);
             hoursView = itemView.findViewById(R.id.hours);
+            editJobButton = itemView.findViewById(R.id.edit_job);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view){
                     clickListener.onItemClick(view, getAdapterPosition());
+                }
+            });
+            editJobButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onEditClick(view, getAdapterPosition());
                 }
             });
         }
@@ -91,5 +100,6 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
 
     public interface ClickListener{
         void onItemClick(View v, int position);
+        void onEditClick(View v, int position);
     }
 }

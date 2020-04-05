@@ -1,17 +1,25 @@
 package com.example.apply;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
-
-import java.util.Arrays;
+import android.widget.Toast;
 
 import static com.example.apply.MainActivity.EXTRA_DATA_DESCRIPTION;
+import static com.example.apply.MainActivity.EXTRA_DATA_EMAIL;
 import static com.example.apply.MainActivity.EXTRA_DATA_EMPLOYER;
 import static com.example.apply.MainActivity.EXTRA_DATA_HOURS;
+import static com.example.apply.MainActivity.EXTRA_DATA_ID;
 import static com.example.apply.MainActivity.EXTRA_DATA_LOCATION;
+import static com.example.apply.MainActivity.EXTRA_DATA_SUMMARY;
 import static com.example.apply.MainActivity.EXTRA_DATA_TITLE;
+import static com.example.apply.MainActivity.NEW_JOB_ACTIVITY_REQUEST_CODE;
+import static com.example.apply.MainActivity.UPDATE_JOB_ACTIVITY_REQUEST_CODE;
 
 public class ViewJobActivity extends AppCompatActivity {
 
@@ -25,6 +33,8 @@ public class ViewJobActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_job);
+        Toolbar toolbar = findViewById(R.id.toolbar_view_job);
+        setSupportActionBar(toolbar);
 
         mTitleView = findViewById(R.id.view_title);
         mEmployerView = findViewById(R.id.view_employer);

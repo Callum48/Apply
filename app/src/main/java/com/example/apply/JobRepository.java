@@ -41,7 +41,6 @@ public class JobRepository {
 
     // Asynchronous tasks accessing Dao methods
     private static class insertAsyncTask extends AsyncTask<Job, Void, Void>{
-
         private JobDao mAsyncTaskDao;
 
         insertAsyncTask(JobDao dao){
