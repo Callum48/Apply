@@ -7,4 +7,10 @@
         android:orderInCategory="100"
         android:title="@string/clear_all_data"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/search_data"
+        android:orderInCategory="200"
+        android:title="Search test"
+        app:showAsAction="never" />
 </menu>

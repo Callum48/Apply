@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewHolder> {
 
     private final LayoutInflater mInflator;
     private List<Job> mJobs; // Cached copy of words
+    private List<Job> mFilteredJobs;
     private static ClickListener clickListener;
 
     JobListAdapter(Context context) {mInflator = LayoutInflater.from(context);}
@@ -46,6 +48,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
 
     void setJobs(List<Job> jobs){
         mJobs = jobs;
+        mFilteredJobs = new ArrayList<>(mJobs);
         notifyDataSetChanged();
     }
 
@@ -61,6 +64,25 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         } else {
             return 0;
         }
+    }
+
+    public void setOnItemClickListener(ClickListener clickListener){
+        JobListAdapter.clickListener = clickListener;
+    }
+
+    public void filter(String searchText){
+        mJobs.clear();
+        if(searchText.isEmpty()){
+            mJobs.addAll(mFilteredJobs);
+        } else {
+            searchText = searchText.toLowerCase();
+            for(Job job: mFilteredJobs){
+                if(job.getTitle().toLowerCase().contains(searchText) || job.getEmployer().toLowerCase().contains(searchText) || job.getLocation().toLowerCase().contains(searchText)){
+                    mJobs.add(job);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     class JobViewHolder extends RecyclerView.ViewHolder{
@@ -92,10 +114,6 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
                 }
             });
         }
-    }
-
-    public void setOnItemClickListener(ClickListener clickListener){
-        JobListAdapter.clickListener = clickListener;
     }
 
     public interface ClickListener{

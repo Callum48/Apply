@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_DATA_ID ="extra_id";
 
     private JobViewModel mJobViewModel;
+
+    private JobListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         // set up the recyclerview
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final JobListAdapter adapter = new JobListAdapter(this);
+        //final JobListAdapter adapter = new JobListAdapter(this);
+        adapter = new JobListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -117,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.clear_data) {
             mJobViewModel.deleteAll();
+        } else if(id == R.id.search_data){
+            String searchText = "pizza";
+            searchText = searchText.toLowerCase();
+            adapter.filter(searchText);
         }
         return super.onOptionsItemSelected(item);
     }
