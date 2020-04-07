@@ -113,24 +113,18 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        final MenuItem searchItem = findViewById(R.id.action_search);
-
         SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
-                callSearch(searchText);
+                adapter.filter(searchText.toLowerCase());
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String searchText) {
-                callSearch(searchText);
-                return true;
-            }
-
-            public void callSearch(String searchText){
                 adapter.filter(searchText.toLowerCase());
+                return true;
             }
         });
         return true;
@@ -141,10 +135,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.clear_data) {
             mJobViewModel.deleteAll();
-        } else if(id == R.id.search_data){
-            String searchText = "pizza";
-            searchText = searchText.toLowerCase();
-            adapter.filter(searchText);
         }
         return super.onOptionsItemSelected(item);
     }

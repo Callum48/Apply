@@ -1,16 +1,21 @@
 package com.example.apply;
 
+import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewHolder> {
 
@@ -88,6 +93,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
     class JobViewHolder extends RecyclerView.ViewHolder{
         private final TextView titleView;
         private final TextView employerView;
+        private final View lineBreak;
         private final TextView summaryView;
         private final TextView locationView;
         private final TextView hoursView;
@@ -97,6 +103,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
             super(itemView);
             titleView = itemView.findViewById(R.id.title);
             employerView = itemView.findViewById(R.id.employer);
+            lineBreak = itemView.findViewById(R.id.line_break);
             summaryView = itemView.findViewById(R.id.summary);
             locationView = itemView.findViewById(R.id.location);
             hoursView = itemView.findViewById(R.id.hours);

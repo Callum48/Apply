@@ -3,23 +3,14 @@ package com.example.apply;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import static com.example.apply.MainActivity.EXTRA_DATA_DESCRIPTION;
-import static com.example.apply.MainActivity.EXTRA_DATA_EMAIL;
 import static com.example.apply.MainActivity.EXTRA_DATA_EMPLOYER;
 import static com.example.apply.MainActivity.EXTRA_DATA_HOURS;
-import static com.example.apply.MainActivity.EXTRA_DATA_ID;
 import static com.example.apply.MainActivity.EXTRA_DATA_LOCATION;
-import static com.example.apply.MainActivity.EXTRA_DATA_SUMMARY;
 import static com.example.apply.MainActivity.EXTRA_DATA_TITLE;
-import static com.example.apply.MainActivity.NEW_JOB_ACTIVITY_REQUEST_CODE;
-import static com.example.apply.MainActivity.UPDATE_JOB_ACTIVITY_REQUEST_CODE;
 
 public class ViewJobActivity extends AppCompatActivity {
 
@@ -45,11 +36,10 @@ public class ViewJobActivity extends AppCompatActivity {
         final Bundle extras = getIntent().getExtras();
 
         mTitleView.setText(extras.getString(EXTRA_DATA_TITLE));
-        mEmployerView.setText(extras.getString(EXTRA_DATA_EMPLOYER));
-        String location = "Location: " + extras.getString(EXTRA_DATA_LOCATION);
-        mLocationView.setText(location);
-        String hours = "Hours: " + String.valueOf(extras.getInt(EXTRA_DATA_HOURS));
-        mHoursView.setText(hours);
+        String employer = extras.getString(EXTRA_DATA_EMPLOYER);
+        mEmployerView.setText(employer);
+        mLocationView.setText(extras.getString(EXTRA_DATA_LOCATION));
+        mHoursView.setText(String.valueOf(extras.getInt(EXTRA_DATA_HOURS)));
         mDescriptionView.setText(extras.getString(EXTRA_DATA_DESCRIPTION));
     }
 }

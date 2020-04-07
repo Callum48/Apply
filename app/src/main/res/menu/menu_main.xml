@@ -9,12 +9,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/search_data"
-        android:orderInCategory="300"
-        android:title="Search test"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_search"
         android:orderInCategory="100"
         android:title="Search"
