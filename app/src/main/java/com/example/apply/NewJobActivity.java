@@ -1,6 +1,8 @@
 package com.example.apply;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,7 +26,7 @@ import static com.example.apply.MainActivity.EXTRA_DATA_LOCATION;
 import static com.example.apply.MainActivity.EXTRA_DATA_SUMMARY;
 import static com.example.apply.MainActivity.EXTRA_DATA_TITLE;
 
-public class NewJobActivity extends Activity implements AdapterView.OnItemSelectedListener {
+public class NewJobActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static final String EXTRA_REPLY_TITLE = "com.example.android.roomjobssample.REPLY_TITLE";
     public static final String EXTRA_REPLY_EMPLOYER = "com.example.android.roomjobssample.REPLY_EMPLOYER";
@@ -48,6 +50,10 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_job);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         mEditTitle = findViewById(R.id.edit_title);
         mEditEmployer = findViewById(R.id.edit_employer);
@@ -141,5 +147,13 @@ public class NewJobActivity extends Activity implements AdapterView.OnItemSelect
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         // code
+    }
+
+    // Side step 'up' navigation to tell app that this activity has finished
+    // Produces more appropriate animation
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

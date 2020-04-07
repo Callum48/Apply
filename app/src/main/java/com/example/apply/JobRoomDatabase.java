@@ -70,7 +70,7 @@ public abstract class JobRoomDatabase extends RoomDatabase {
             // if there aren't any jobs in db, then create the initial list of jobs
             if(mDao.getAnyJob().length < 1){
                 for(int i = 0; i < titles.length; i++){
-                    Job job = new Job(titles[i], employers[i], "temp email", summaries[i], "temp description", locations[i], hours[i]);
+                    Job job = new Job(titles[i], employers[i], "jeff@gmail.com", summaries[i], "temp description", locations[i], hours[i]);
                     mDao.insert(job);
                 }
             }
