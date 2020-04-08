@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -45,6 +47,7 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
     private Spinner mSpinnerLocation;
     private String location;
     private EditText mEditHours;
+    private boolean backPressedRecently;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
         mEditDescription = findViewById(R.id.edit_description);
         mSpinnerLocation = findViewById(R.id.spinner_location);
         mEditHours = findViewById(R.id.edit_hours);
-
+        backPressedRecently = false;
         int id = -1;
 
         final Bundle extras = getIntent().getExtras();
@@ -92,17 +95,16 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent replyIntent = new Intent();
-                if(TextUtils.isEmpty(mEditTitle.getText()) ||
-                        TextUtils.isEmpty(mEditEmployer.getText()) ||
-                        TextUtils.isEmpty(mEditEmail.getText()) ||
-                        location == null ||
-                        TextUtils.isEmpty(mEditHours.getText()) ||
-                        TextUtils.isEmpty(mEditSummary.getText()) ||
-                        TextUtils.isEmpty(mEditDescription.getText())){
-                    // Reply with save failure info
-                    setResult(RESULT_CANCELED, replyIntent);
-                } else {
+                if(!TextUtils.isEmpty(mEditTitle.getText()) &&
+                        !TextUtils.isEmpty(mEditEmployer.getText()) &&
+                        !TextUtils.isEmpty(mEditEmail.getText()) &&
+                        location != null &&
+                        !TextUtils.isEmpty(mEditHours.getText()) &&
+                        !TextUtils.isEmpty(mEditSummary.getText()) &&
+                        !TextUtils.isEmpty(mEditDescription.getText())){
+
+                    Intent replyIntent = new Intent();
+
                     // Send info back to main activity to be created into a new job
                     String title = mEditTitle.getText().toString();
                     String employer = mEditEmployer.getText().toString();
@@ -132,11 +134,35 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
                     // Add data to reply intent and indicate success
                     replyIntent.putExtras(extrasReply);
                     setResult(RESULT_OK, replyIntent);
+                    finish();
+                } else {
+                    // Notify user they cannot save the job
+                    Toast.makeText(getApplicationContext(), "Cannot save job because there are empty fields", Toast.LENGTH_LONG).show();
                 }
-                finish();
             }
         });
 
+    }
+
+    /**
+     * Makes user double press back to exit and cancel saving their job
+     * Prevents accidentally abandoning the changes they've made
+     */
+    @Override
+    public void onBackPressed(){
+        if(backPressedRecently){
+            super.onBackPressed();
+        } else {
+            backPressedRecently = true;
+            Toast.makeText(getApplicationContext(), "Press back again to cancel saving a job", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    backPressedRecently = false;
+                }
+            }, 2000);
+        }
     }
 
     @Override
@@ -146,14 +172,28 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        // code
     }
 
-    // Side step 'up' navigation to tell app that this activity has finished
-    // Produces more appropriate animation
+    /**
+     * Same double press exit functionality on toolbar back button
+     * Side step 'up' navigation to tell app that this activity has finished
+     * Produces more appropriate animation
+     */
     @Override
     public boolean onSupportNavigateUp() {
-        finish();
+        if(backPressedRecently){
+            finish();
+        } else {
+            backPressedRecently = true;
+            Toast.makeText(getApplicationContext(), "Press back again to cancel saving a job", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    backPressedRecently = false;
+                }
+            }, 2000);
+        }
         return true;
     }
 }
