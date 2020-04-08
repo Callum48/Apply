@@ -1,27 +1,21 @@
 package com.example.apply;
 
-import android.app.Application;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewHolder> {
 
     private final LayoutInflater mInflator;
     private List<Job> mJobs; // Cached copy of words
-    private List<Job> mFilteredJobs;
+    private List<Job> mFilteredJobs; // Duplicate of job list for filtering after search
     private static ClickListener clickListener;
 
     JobListAdapter(Context context) {mInflator = LayoutInflater.from(context);}
@@ -32,6 +26,9 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         return new JobViewHolder(itemView);
     }
 
+    /**
+     *This method is responsible for setting data to an individual recycler view item
+     */
     @Override
     public void onBindViewHolder(JobViewHolder holder, int position){
         if(mJobs != null){
@@ -51,17 +48,22 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         }
     }
 
+    /**
+     * Populate the job list used for the UI with the jobs gotten from the database
+     */
     void setJobs(List<Job> jobs){
         mJobs = jobs;
         mFilteredJobs = new ArrayList<>(mJobs);
         notifyDataSetChanged();
     }
 
+    /**
+     * Tells the app which job to act on given a recyclerview list item position interacted with
+     */
     public Job getJobAtPosition(int pos){
         return mJobs.get(pos);
     }
 
-    // getItemCount() is call multiple times, and when it's first called, mJobs is null so we return 0
     @Override
     public int getItemCount(){
         if(mJobs != null){
@@ -75,11 +77,17 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         JobListAdapter.clickListener = clickListener;
     }
 
+    /**
+     * Set the job list to only those with certain fields containing the search string
+     */
     public void filter(String searchText){
+        // Empty the list for modification
         mJobs.clear();
         if(searchText.isEmpty()){
+            // Show all the jobs if there isn't a search string
             mJobs.addAll(mFilteredJobs);
         } else {
+            // Find jobs matching the search text and certain info eg location
             searchText = searchText.toLowerCase();
             for(Job job: mFilteredJobs){
                 if(job.getTitle().toLowerCase().contains(searchText) || job.getEmployer().toLowerCase().contains(searchText) || job.getLocation().toLowerCase().contains(searchText)){
@@ -108,6 +116,8 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
             locationView = itemView.findViewById(R.id.location);
             hoursView = itemView.findViewById(R.id.hours);
             editJobButton = itemView.findViewById(R.id.edit_job);
+
+            // Allow clicking the recyclerview job items and the edit job button
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view){

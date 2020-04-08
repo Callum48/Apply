@@ -52,14 +52,16 @@ public abstract class JobRoomDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void>{
 
         private final JobDao mDao;
-        String[] titles = {"Pizza Delivery Driver", "Cafe Assistant/Barista", "Experienced Kitchen Hands wanted!", "Casual Event Staff", "Casual Vacancies - Pak'nSAVE Mill Street"};
-        String[] employers = {"HELL Pizza", "Coffee Culture", "The Recruitment Network", "ASB Showgrounds", "Gladstone Retail ltd"};
-        String[] emails = {"hell.pizza@gmail.com", "owner@coffeeculture.com", "hospitality@trn.com", "events@asbshowgrounds.co.nz", "millstreet@paknsave.co.nz"};
+
+        // Content for default jobs list to be loaded into the db if it's empty
+        String[] titles = {"Pizza Delivery Driver", "Cafe Assistant/Barista", "Experienced Kitchen Hands wanted!", "Casual Event Staff", "Casual Vacancies - Pak'nSAVE Mill Street", "F45 Group Fitness Trainer"};
+        String[] employers = {"HELL Pizza", "Coffee Culture", "The Recruitment Network", "ASB Showgrounds", "Gladstone Retail ltd", "F45 Training Papatoetoe"};
+        String[] emails = {"hell.pizza@gmail.com", "owner@coffeeculture.com", "hospitality@trn.com", "events@asbshowgrounds.co.nz", "millstreet@paknsave.co.nz", "f45training@fitness.co.nz"};
         String[] summaries = {"Our team is looking to expand and are welcoming applications for part time roles.",
                 "We’re looking for well-presented and dynamic people with a passion for great coffee and service to be part of our new team.",
                 "This is a great opportunity for a versatile kitchen hand to be part of a great team!",
                 "We are currently looking for passionate and motivated casual staff for event work with flexible hours",
-                "Come and work with our close-knit team at New Zealand's favourite supermarket!"};
+                "Come and work with our close-knit team at New Zealand's favourite supermarket!", "Do you have a passion for life changing fitness and being part of a like minded team of trainers? If you've answered YES, then we want to hear from you!"};
         String[] descriptions = {"Our team is looking to expand and are welcoming applications for the below part time roles.\n\n" +
                 "- Delivering pizzas and other products to customers.\n" +
                 "- Providing quality customer service at the door.\n" +
@@ -109,9 +111,38 @@ public abstract class JobRoomDatabase extends RoomDatabase {
                 "We are looking for reliable people with positive energy, who are keen to help out when needed and are proud to be able to serve their community.\n\n" +
                 "Applicants for the Checkout Supervisor roles will need to have related previous experience. All other roles are entry level and you will receive the necessary training to get you started.\n\n" +
                 "Please submit with your application your CV and Cover Letter.\n\n" +
-                "You must have the right to work in New Zealand to apply for these roles."};
-        String[] locations = {"Wellington", "Canterbury", "Northland", "Northland", "Waikato"};
-        int[] hours = {7, 8, 10, 6, 8};
+                "You must have the right to work in New Zealand to apply for these roles.",
+
+                "We're looking for a superstar trainer to join our dream-team! Yes, our group training classes are unique, fun and highly addictive which is why F45 Training is currently the fastest growing network of fitness studios across the globe… but it's our team and commitment to our community that sets us apart!\n\n\n" +
+                "Is F45 for you?\n\n" +
+                "- Are you energetic, dynamic, lively, vivacious?\n" +
+                "- Can you connect with, inspire and motivate people to reach their goals?\n" +
+                "- Are you professional, punctual and reliable with a great work ethic?\n" +
+                "- Do you have a passion for life changing fitness and being part of a like minded team of trainers? \n\n" +
+                "If you've answered YES to all these questions then we want to hear from you!\n\n" +
+                "We are looking for Part-time and Casual positions.\n\n\n" +
+                "The Roles’ MUSTS:\n\n" +
+                "- Create an amazing F45 community and team culture.\n" +
+                "- Engage with members from the moment they walk in the door to the moment they leave. \n" +
+                "- Build strong and lasting relationships with new and existing members.  \n" +
+                "- Be extremely punctual & reliable.\n" +
+                "- Keep the studio well presented at all times.\n" +
+                "- Have a friendly personality and great sense of humour.\n" +
+                "- Be an ultimate team player.\n" +
+                "- Always share the F45 love and high-fives.\n\n\n" +
+                "The Roles’ NEEDS:\n\n" +
+                "- Demonstrate, introduce and lead F45 classes, ensuring that members get an intense session every time they train with us.\n" +
+                "- Deliver clear instruction in the F45 terminology.\n" +
+                "- Actively assist and correct members’ exercise technique by providing modified suggestions for improvement or injury awareness.\n" +
+                "- Actively participate in social media.\n\n\n" +
+                "Skills and Experience:\n\n" +
+                "- Cert III or IV Fitness\n" +
+                "- First Aid and CPR trained\n" +
+                "- Fitness Registration (highly regarded)\n" +
+                "- Outstanding time management and organisational skills\n\n\n" +
+                "If you’re up for the task and have what it takes, then send us your CV along with a Cover Letter introducing yourself and telling us why you'd be a great asset to our team."};
+        String[] locations = {"Wellington", "Canterbury", "Northland", "Auckland", "Waikato", "Auckland"};
+        int[] hours = {7, 8, 10, 6, 8, 5};
 
         PopulateDbAsync(JobRoomDatabase db){
             mDao = db.jobDao();
@@ -119,7 +150,7 @@ public abstract class JobRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params){
-            // if there aren't any jobs in db, then create the initial list of jobs
+            // if there aren't any jobs in db, then create the initial list of jobs using content above
             if(mDao.getAnyJob().length < 1){
                 for(int i = 0; i < titles.length; i++){
                     Job job = new Job(titles[i], employers[i], emails[i], summaries[i], descriptions[i], locations[i], hours[i]);

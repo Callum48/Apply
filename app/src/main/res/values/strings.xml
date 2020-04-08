@@ -9,9 +9,24 @@
     <string name="hint_location">Enter job location</string>
     <string name="hint_hours">Enter weekly hours</string>
     <string name="button_save">Save</string>
-    <string name="empty_not_saved">Job not saved because there are empty fields</string>
     <string name="clear_all_data">Clear all data</string>
     <string name="apply">Apply</string>
+    <string name="submit_a_new_job">Submit a new job</string>
+    <string name="job_title">Job title:</string>
+    <string name="employer_name">Employer name:</string>
+    <string name="contact_email">Contact Email:</string>
+    <string name="job_summary">Job Summary:</string>
+    <string name="job_description">Job Description:</string>
+    <string name="placeholder_employer">Placeholder employer</string>
+    <string name="location_placeholder">Location: </string>
+    <string name="placeholder">Placeholder</string>
+    <string name="weekly_hours">Weekly hours:</string>
+    <string name="placeholder_job_description_text">Placeholder job description text</string>
+    <string name="desc_buffer">\n\n\n\n</string>
+    <string name="location">Location</string>
+    <string name="hours">Hours</string>
+    <string name="location_header">Location:</string>
+    <string name="hours_header">Hours:</string>
 
     <string-array name="locations">
         <item>Northland</item>

@@ -54,6 +54,7 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_job);
 
+        // Enable back button on toolbar
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -95,6 +96,7 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                // Checks if any content is missing
                 if(!TextUtils.isEmpty(mEditTitle.getText()) &&
                         !TextUtils.isEmpty(mEditEmployer.getText()) &&
                         !TextUtils.isEmpty(mEditEmail.getText()) &&
@@ -105,7 +107,7 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
 
                     Intent replyIntent = new Intent();
 
-                    // Send info back to main activity to be created into a new job
+                    // Gets info for main activity to be created into a new job
                     String title = mEditTitle.getText().toString();
                     String employer = mEditEmployer.getText().toString();
                     String email = mEditEmail.getText().toString();
@@ -136,7 +138,7 @@ public class NewJobActivity extends AppCompatActivity implements AdapterView.OnI
                     setResult(RESULT_OK, replyIntent);
                     finish();
                 } else {
-                    // Notify user they cannot save the job
+                    // Notify user they cannot save the job because fields are empty
                     Toast.makeText(getApplicationContext(), "Cannot save job because there are empty fields", Toast.LENGTH_LONG).show();
                 }
             }

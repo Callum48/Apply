@@ -25,9 +25,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Request codes used for differentiating adding a new job and editing an existing one
     public static final int NEW_JOB_ACTIVITY_REQUEST_CODE  = 1;
     public static final int UPDATE_JOB_ACTIVITY_REQUEST_CODE = 2;
 
+    // Keys for passing data to other activities
     public static final String EXTRA_DATA_TITLE = "extra_title";
     public static final String EXTRA_DATA_EMPLOYER = "extra_employer";
     public static final String EXTRA_DATA_EMAIL = "extra_email";
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_DATA_ID ="extra_id";
 
     private JobViewModel mJobViewModel;
-
     private JobListAdapter adapter;
 
     @Override
@@ -60,13 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
         // set up the recyclerview
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        //final JobListAdapter adapter = new JobListAdapter(this);
         adapter = new JobListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mJobViewModel = ViewModelProviders.of(this).get(JobViewModel.class);
 
+        // Set observer on live data provided by database
         mJobViewModel.getAllJobs().observe(this, new Observer<List<Job>>() {
             @Override
             public void onChanged(@Nullable final List<Job> jobs) {
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         );
         helper.attachToRecyclerView(recyclerView);
 
+        // Launch corresponding activities for opening and editing a job
         adapter.setOnItemClickListener(new JobListAdapter.ClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -109,10 +111,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Creates the menu in the tool bar and the search view used to search the rows of data
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -130,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Allows the user to clear the current data when this option is chosen
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -139,6 +146,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method is called when the activity giving the result (adding/editing a job) is finished
+     * If a job was being added in the activity, it adds a new row to the db with the given data
+     * If an existing job was being editied, it updates that jobs content
+     * @param requestCode - Tells the method what operation was happening
+     * @param resultCode - Indicates success/failure
+     * @param data - The job content (title, email etc) given back here to be used with DAO
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -163,12 +178,9 @@ public class MainActivity extends AppCompatActivity {
 
             if(id != -1){
                 mJobViewModel.update(new Job(id, title, employer, email, summary, description, location, hours));
-                Toast.makeText(this, "attempting updating", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Unable to update", Toast.LENGTH_LONG).show();
             }
-        } else {
-            Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -184,6 +196,9 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, UPDATE_JOB_ACTIVITY_REQUEST_CODE);
     }
 
+    /**
+     * Retrieves data from job for giving to a new activity
+     */
     public Bundle getJobBundleData(Job job){
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_DATA_TITLE, job.getTitle());

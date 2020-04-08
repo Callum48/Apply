@@ -11,7 +11,7 @@ import androidx.room.Update;
 import java.util.List;
 
 /**
- * Database Access Object for a job
+ * Database Access Object for a job that is accessed by other classes in the application
  * Each method performs a database operation, such as inserting or deleting a word
  */
 

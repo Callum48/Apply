@@ -39,7 +39,7 @@ public class JobRepository {
         new deleteJobAsyncTask(mJobDao).execute(job);
     }
 
-    // Asynchronous tasks accessing Dao methods
+    // Asynchronous tasks calling Dao methods
     private static class insertAsyncTask extends AsyncTask<Job, Void, Void>{
         private JobDao mAsyncTaskDao;
 

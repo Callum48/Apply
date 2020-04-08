@@ -43,7 +43,6 @@
             android:id="@+id/edit_job"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="launch"
             android:src="@drawable/ic_edit_blue_24dp"
             android:background="#ffffff"/>
 
@@ -62,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/text_view_style"
-        tools:text="Short summary about the job. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+        tools:text="Short summary about the job. Lorem ipsum dolor sit dolore magna aliqua." />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,7 +80,7 @@
                 android:layout_height="wrap_content"
                 style="@style/text_view_style"
                 android:textStyle="bold"
-                android:text="Location"/>
+                android:text="@string/location"/>
 
             <TextView
                 android:id="@+id/location"
@@ -103,7 +102,7 @@
                 android:layout_height="wrap_content"
                 style="@style/text_view_style"
                 android:textStyle="bold"
-                android:text="Hours"/>
+                android:text="@string/hours"/>
 
             <TextView
                 android:id="@+id/hours"
@@ -115,7 +114,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 </LinearLayout>

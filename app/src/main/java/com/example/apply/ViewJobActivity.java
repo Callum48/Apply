@@ -45,8 +45,7 @@ public class ViewJobActivity extends AppCompatActivity {
         mHoursView = findViewById(R.id.view_hours);
         mDescriptionView = findViewById(R.id.view_description);
 
-
-
+        // Set data given from previous activity in extra bundle to textviews
         mTitleView.setText(extras.getString(EXTRA_DATA_TITLE));
         String employer = extras.getString(EXTRA_DATA_EMPLOYER);
         mEmployerView.setText(employer);
@@ -63,6 +62,10 @@ public class ViewJobActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Starts an email in the user's default email app
+     * Recipient, subject and body data are all supplied
+     */
     public void startEmail(View view) {
         String[] recipient = {extras.getString(EXTRA_DATA_EMAIL)};
         String subject = extras.getString(EXTRA_DATA_TITLE) + " application";
@@ -78,8 +81,5 @@ public class ViewJobActivity extends AppCompatActivity {
         if(intent.resolveActivity(getPackageManager()) != null){
             startActivity(intent);
         }
-
-        //
-        //startActivity(Intent.createChooser(intent, "Choose an email app"));
     }
 }

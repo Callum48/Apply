@@ -6,6 +6,11 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+/**
+ * Job is the object the database stores
+ * Information is provided about the different fields to help construct the database
+ */
+
 @Entity(tableName = "job_table")
 public class Job {
 
